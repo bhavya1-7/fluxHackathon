@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - RescueRoad</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <h1>RescueRoad</h1>
+        </div>
+        <nav class="desktop-nav">
+            <ul>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="#" class="active">Sign Up</a></li>
+            </ul>
+        </nav>
+        <div class="mobile-menu-icon">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <div class="mobile-nav">
+        <ul>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="#" class="active">Sign Up</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <section class="login-section">
+            <div class="login-container">
+                <h2>Create Your Account</h2>
+                <form id="signup-form" class="login-form">
+                    <div class="form-group">
+                        <label for="fullname">Full Name</label>
+                        <input type="text" id="fullname" placeholder="Enter your full name" required>
+                        <span class="error-message" id="fullname-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="Enter your email" required>
+                        <span class="error-message" id="email-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="password-input-container">
+                            <input type="password" id="password" placeholder="Enter your password" required>
+                            <i class="fas fa-eye-slash toggle-password"></i>
+                        </div>
+                        <span class="error-message" id="password-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm Password</label>
+                        <div class="password-input-container">
+                            <input type="password" id="confirm-password" placeholder="Confirm your password" required>
+                            <i class="fas fa-eye-slash toggle-confirm-password"></i>
+                        </div>
+                        <span class="error-message" id="confirm-password-error"></span>
+                    </div>
+                    <div class="form-error" id="signup-error"></div>
+                    <button type="submit" class="primary-btn login-btn">Sign Up</button>
+                    <div class="signup-link">
+                        Already have an account? <a href="login.html">Log in</a>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Dark Mode Toggle -->
+    <div class="dark-mode-toggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <!-- Scripts -->
+    <script src="signup.js"></script>
+</body>
+</html> 

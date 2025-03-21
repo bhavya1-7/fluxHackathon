@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RescueRoad - Roadside Assistance & Emergency Support</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <h1>RescueRoad</h1>
+        </div>
+        <nav class="desktop-nav">
+            <ul>
+                <li><a href="#" class="active" id="home-link">Home</a></li>
+                <li><a href="#" id="assistance-link">Request Assistance</a></li>
+                <li><a href="#" id="logout-link">Logout</a></li>
+            </ul>
+        </nav>
+        <div class="mobile-menu-icon">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <div class="mobile-nav">
+        <ul>
+            <li><a href="#" class="active" id="mobile-home-link">Home</a></li>
+            <li><a href="#" id="mobile-assistance-link">Request Assistance</a></li>
+            <li><a href="#" id="mobile-logout-link">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home Page Section -->
+        <section id="home-page">
+            <!-- Search Bar -->
+            <div class="search-container">
+                <input type="text" id="location-search" placeholder="Enter your location">
+                <button id="search-button"><i class="fas fa-search"></i></button>
+                <button id="current-location"><i class="fas fa-map-marker-alt"></i> Use Current Location</button>
+            </div>
+
+            <!-- Map Section -->
+            <div class="map-container">
+                <div id="map"></div>
+                <button id="refresh-location"><i class="fas fa-redo"></i> Refresh Location</button>
+            </div>
+
+            <!-- Emergency Services Section -->
+            <section class="services-section">
+                <h2>Nearby Emergency Services</h2>
+                <div class="services-filter">
+                    <button class="filter-btn active" data-type="all">All</button>
+                    <button class="filter-btn" data-type="mechanic">Mechanics</button>
+                    <button class="filter-btn" data-type="towing">Towing</button>
+                    <button class="filter-btn" data-type="fuel">Fuel Stations</button>
+                </div>
+                <div class="services-list" id="services-list">
+                    <!-- Service items will be added dynamically via JavaScript -->
+                </div>
+                <button id="request-assistance-btn" class="primary-btn">Request Assistance</button>
+            </section>
+        </section>
+
+        <!-- Assistance Request Page -->
+        <section id="assistance-page" class="hidden">
+            <div class="form-container">
+                <h2>Request Roadside Assistance</h2>
+                <form id="assistance-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" required>
+                        <span class="error-message" id="name-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Contact Number</label>
+                        <input type="tel" id="phone" required>
+                        <span class="error-message" id="phone-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="issue">Issue Description</label>
+                        <textarea id="issue" rows="4" required minlength="10"></textarea>
+                        <span class="error-message" id="issue-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" required>
+                        <button type="button" id="form-current-location" class="secondary-btn">
+                            <i class="fas fa-map-marker-alt"></i> Use Current Location
+                        </button>
+                        <span class="error-message" id="location-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="save-location">
+                            <input type="checkbox" id="save-location"> Save My Location for Future Requests
+                        </label>
+                    </div>
+                    <button type="submit" class="primary-btn" id="submit-request">Request Assistance</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal for Service Details -->
+    <div class="modal" id="service-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modal-content">
+                <!-- Service details will be populated dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal" id="confirmation-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="confirmation-message">
+                <i class="fas fa-check-circle"></i>
+                <h3>Success!</h3>
+                <p>Your request has been successfully submitted.</p>
+                <p>We'll contact you shortly with assistance details.</p>
+                <button class="primary-btn" id="confirmation-ok">OK</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Logout Confirmation Modal -->
+    <div class="modal" id="logout-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="confirmation-message">
+                <i class="fas fa-sign-out-alt"></i>
+                <h3>Logout</h3>
+                <p>Are you sure you want to log out?</p>
+                <div class="modal-buttons">
+                    <button class="secondary-btn" id="cancel-logout">Cancel</button>
+                    <button class="primary-btn" id="confirm-logout">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Dark Mode Toggle -->
+    <div class="dark-mode-toggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <!-- Scripts -->
+    <!-- Note: Replace YOUR_API_KEY with a valid Google Maps API key -->
+    <!-- To get a key, visit: https://developers.google.com/maps/documentation/javascript/get-api-key -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places" onerror="console.error('Google Maps failed to load')"></script>
+    <script src="script.js"></script>
+</body>
+</html> 

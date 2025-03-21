@@ -1,0 +1,149 @@
+/* Login Page Styles */
+.login-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 100px);
+}
+
+.login-container {
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: var(--box-shadow);
+    padding: 2rem;
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+    transition: var(--transition);
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+}
+
+.login-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.password-input-container {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--medium-gray);
+}
+
+.toggle-password:hover {
+    color: var(--dark-gray);
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+}
+
+.remember-me input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+.remember-me label {
+    margin-bottom: 0;
+    font-weight: normal;
+}
+
+.forgot-password {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+
+.signup-link {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.signup-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.signup-link a:hover {
+    text-decoration: underline;
+}
+
+.form-error {
+    color: #dc3545;
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    background-color: rgba(220, 53, 69, 0.1);
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    display: none;
+}
+
+/* Dark Mode Styles */
+body.dark-mode .login-container {
+    background-color: var(--dark-element);
+    color: var(--dark-text);
+}
+
+body.dark-mode .login-container h2 {
+    color: var(--primary-color);
+}
+
+body.dark-mode .forgot-password,
+body.dark-mode .signup-link a {
+    color: var(--primary-color);
+}
+
+body.dark-mode .toggle-password {
+    color: var(--dark-text);
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .login-container {
+        padding: 1.5rem;
+        width: 90%;
+    }
+    
+    .form-options {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .forgot-password {
+        margin-top: 0.5rem;
+    }
+} 
