@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>roadresisst - Emergency Roadside Assistance</title>
+    
+    <!-- Leaflet CSS and JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="front.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <img src="https://via.placeholder.com/45" alt="roadresisst Logo">
+                <h1>roadresisst</h1>
+            </div>
+            
+            <nav class="main-nav">
+                <ul class="nav-buttons">
+                    <li><a href="#" class="nav-btn active"><i class="fas fa-map-marked-alt"></i> Find Services</a></li>
+                    <li><a href="#" class="nav-btn"><i class="fas fa-history"></i> History</a></li>
+                    <li><a href="#" class="nav-btn"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="#" class="nav-btn"><i class="fas fa-user-circle"></i> Profile</a></li>
+                </ul>
+            </nav>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <button id="dark-mode-toggle" class="dark-mode-toggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav">
+        <ul class="nav-buttons-mobile">
+            <li><a href="#" class="nav-btn active"><i class="fas fa-map-marked-alt"></i> Find Services</a></li>
+            <li><a href="#" class="nav-btn"><i class="fas fa-history"></i> History</a></li>
+            <li><a href="#" class="nav-btn"><i class="fas fa-info-circle"></i> About</a></li>
+            <li><a href="#" class="nav-btn"><i class="fas fa-user-circle"></i> Profile</a></li>
+        </ul>
+    </div>
+    
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Banner -->
+        <section class="hero-banner">
+            <div class="container">
+                <h2>Help is just a click away!</h2>
+                <p>Find emergency roadside assistance services near you</p>
+                <button id="request-help" class="primary-btn">Request Assistance</button>
+                <button id="sos-btn" class="emergency-btn"><i class="fas fa-exclamation-triangle"></i> SOS</button>
+            </div>
+        </section>
+        
+        <!-- Map Section -->
+        <section class="map-section">
+            <div class="container">
+                <div class="location-search">
+                    <div class="search-box">
+                        <input type="text" id="location-input" placeholder="Enter your location">
+                        <button id="search-btn"><i class="fas fa-search"></i></button>
+                    </div>
+                    <button id="use-my-location" class="outline-btn"><i class="fas fa-location-arrow"></i> Use My Location</button>
+                    <button id="refresh-map" class="outline-btn"><i class="fas fa-sync-alt"></i> Refresh</button>
+                </div>
+                
+                <div class="map-container">
+                    <div id="map"></div>
+                    
+                    <div id="map-loading" class="loading-container">
+                        <i class="fas fa-circle-notch fa-spin"></i>
+                        <p>Finding your location...</p>
+                    </div>
+                </div>
+                
+                <div class="services-container">
+                    <div class="services-header">
+                        <h3>Emergency Services</h3>
+                        <div class="filter-buttons">
+                            <button data-filter="all" class="filter-btn active">All</button>
+                            <button data-filter="mechanic" class="filter-btn"><i class="fas fa-tools"></i></button>
+                            <button data-filter="gas" class="filter-btn"><i class="fas fa-gas-pump"></i></button>
+                            <button data-filter="police" class="filter-btn"><i class="fas fa-shield-alt"></i></button>
+                            <button data-filter="fire" class="filter-btn"><i class="fas fa-fire-extinguisher"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="services-list-container">
+                        <div id="services-list"></div>
+                        
+                        <div id="services-loading" class="loading-container">
+                            <i class="fas fa-circle-notch fa-spin"></i>
+                            <p>Finding services near you...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="container">
+                <h2>Why Choose roadresisst?</h2>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3>Quick Response</h3>
+                        <p>Get help within minutes with our network of service providers.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>24/7 Support</h3>
+                        <p>Round-the-clock assistance for any emergency situation.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </div>
+                        <h3>GPS Tracking</h3>
+                        <p>Real-time tracking of service providers coming to help you.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3>Verified Providers</h3>
+                        <p>All service providers are verified and rated by users.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="https://via.placeholder.com/30" alt="roadresisst Logo">
+                    <h3>roadresisst</h3>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Join Our Network</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="link-group">
+                        <h4>Services</h4>
+                        <ul>
+                            <li><a href="#">Mechanic</a></li>
+                            <li><a href="#">Fuel Delivery</a></li>
+                            <li><a href="#">Towing</a></li>
+                            <li><a href="#">Emergency Help</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="link-group">
+                        <h4>Contact</h4>
+                        <ul>
+                            <li><a href="#">Help Center</a></li>
+                            <li><a href="#">Email Us</a></li>
+                            <li><a href="#">Phone: 1800-123-4567</a></li>
+                            <li><a href="#">Request a Call</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 roadresisst. All rights reserved.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Chatbot -->
+    <div id="chatbot-toggle" class="chatbot-toggle">
+        <i class="fas fa-comment-dots"></i>
+        <span>Need Help?</span>
+    </div>
+    
+    <div id="chatbot" class="chatbot">
+        <div class="chatbot-header">
+            <h3><i class="fas fa-robot"></i> roadresisst Assistant</h3>
+            <div class="chatbot-controls">
+                <button id="minimize-chat"><i class="fas fa-minus"></i></button>
+                <button id="close-chat"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+        
+        <div id="chatbot-messages" class="chatbot-messages">
+            <!-- Bot message will be added here dynamically -->
+            <div class="chat-message bot">
+                <div class="chat-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="message-content">
+                    <p>Hello! I'm your roadresisst assistant. How can I help you today?</p>
+                    <span class="message-time">10:00</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chatbot-suggestions">
+            <button class="suggestion-btn">I have a flat tire</button>
+            <button class="suggestion-btn">Need a tow truck</button>
+            <button class="suggestion-btn">Out of fuel</button>
+            <button class="suggestion-btn">Battery issue</button>
+        </div>
+        
+        <div class="chatbot-input">
+            <input type="text" id="chat-input" placeholder="Type your message here...">
+            <button id="send-message-btn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+    
+    <!-- Modals -->
+    <!-- Service Details Modal -->
+    <div id="service-details-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="service-details-content"></div>
+        </div>
+    </div>
+    
+    <!-- Assistance Request Modal -->
+    <div id="assistance-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Request Assistance</h2>
+            
+            <form id="assistance-form">
+                <div class="form-group">
+                    <label><i class="fas fa-car"></i> Vehicle Type</label>
+                    <select id="vehicle-type">
+                        <option value="car">Car</option>
+                        <option value="bike">Motorcycle</option>
+                        <option value="truck">Truck</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-tools"></i> Issue Type</label>
+                    <select id="issue-type">
+                        <option value="flat">Flat Tire</option>
+                        <option value="battery">Battery Issue</option>
+                        <option value="fuel">Out of Fuel</option>
+                        <option value="engine">Engine Problem</option>
+                        <option value="tow">Need Towing</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-map-marker-alt"></i> Your Location</label>
+                    <input type="text" id="req-location" placeholder="Your current location">
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-info-circle"></i> Additional Details</label>
+                    <textarea id="req-details" placeholder="Please provide more details about your issue"></textarea>
+                </div>
+                
+                <div class="form-group checkbox">
+                    <input type="checkbox" id="save-location">
+                    <label for="save-location">Save my location for future requests</label>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="primary-btn">Submit Request</button>
+                    <button type="button" class="outline-btn cancel-btn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Confirmation Modal -->
+    <div id="confirmation-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="confirmation-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Request Submitted!</h2>
+            <p>Your assistance request has been successfully submitted. A service provider will contact you shortly.</p>
+            <p class="request-id">Request ID: <strong>RR-12345</strong></p>
+            <button class="primary-btn">Track Request Status</button>
+        </div>
+    </div>
+    
+    <!-- Custom JavaScript -->
+    <script src="front.js"></script>
+</body>
+</html> 
