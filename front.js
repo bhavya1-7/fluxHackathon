@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Check login status and update UI
+    checkLoginStatus();
+    
     // Initialize Map
     const map = L.map('map').setView([28.6139, 77.2090], 12); // Default location: New Delhi
     let userMarker = null;
@@ -35,6 +38,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const mobileNav = document.querySelector('.mobile-nav');
     
+    // Feedback Widget
+    const feedbackToggle = document.getElementById('feedback-toggle');
+    const feedbackWidget = document.getElementById('feedback-widget');
+    const minimizeFeedback = document.getElementById('minimize-feedback');
+    const closeFeedback = document.getElementById('close-feedback');
+    const quickFeedbackForm = document.getElementById('quick-feedback-form');
+    const feedbackThankYou = document.getElementById('feedback-thank-you');
+    const feedbackCloseBtn = document.getElementById('feedback-close-btn');
+    
     // Service Types with Icons and Colors
     const serviceTypes = {
         mechanic: {
@@ -65,29 +77,40 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize the Map
     function initMap() {
-        showLoading(true);
-        
-        // Try to get user's current location
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                position => {
-                    const userLocation = [position.coords.latitude, position.coords.longitude];
-                    map.setView(userLocation, 14);
-                    addUserMarker(userLocation);
-                    fetchNearbyServices(userLocation);
-                },
-                error => {
-                    console.error('Error getting location:', error);
-                    showLoading(false);
-                    // Show demo services for New Delhi if location access is denied
-                    fetchNearbyServices([28.6139, 77.2090]);
-                }
-            );
-        } else {
-            console.error('Geolocation is not supported by this browser.');
+        try {
+            showLoading(true);
+            
+            // Try to get user's current location
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        try {
+                            const userLocation = [position.coords.latitude, position.coords.longitude];
+                            map.setView(userLocation, 14);
+                            addUserMarker(userLocation);
+                            fetchNearbyServices(userLocation);
+                        } catch (err) {
+                            console.error("Error handling position:", err);
+                            showLoading(false);
+                            fetchNearbyServices([28.6139, 77.2090]); // Fallback to default
+                        }
+                    },
+                    error => {
+                        console.error('Error getting location:', error);
+                        showLoading(false);
+                        fetchNearbyServices([28.6139, 77.2090]);
+                    }
+                );
+            } else {
+                console.error('Geolocation is not supported by this browser.');
+                showLoading(false);
+                fetchNearbyServices([28.6139, 77.2090]);
+            }
+        } catch (err) {
+            console.error("Error initializing map:", err);
             showLoading(false);
-            // Show demo services for New Delhi if geolocation is not supported
-            fetchNearbyServices([28.6139, 77.2090]);
+            // Show a user-friendly error message
+            alert("We encountered an issue loading the map. Please refresh the page and try again.");
         }
     }
     
@@ -186,9 +209,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const [lat, lon] = location;
         const serviceTypeKeys = Object.keys(serviceTypes);
         
-        // Generate 3-5 services for each type
+        // Generate exactly 3 services for each type
         serviceTypeKeys.forEach(type => {
-            const count = Math.floor(Math.random() * 3) + 3; // 3-5 services per type
+            const count = 3; // Fixed to 3 services per type
             
             for (let i = 0; i < count; i++) {
                 // Generate a location within ~2km of the user
@@ -196,9 +219,33 @@ document.addEventListener('DOMContentLoaded', function() {
                 const serviceLat = lat + offset;
                 const serviceLon = lon + offset;
                 
+                // Predefined names for each service type (exactly 3 each)
+                const serviceNames = {
+                    mechanic: [
+                        'Quick Fix Auto Service',
+                        'City Mechanics Workshop',
+                        'Express Car Repairs'
+                    ],
+                    gas: [
+                        'Indian Oil Petrol Pump',
+                        'HP Gas Station',
+                        'Shell Fuel Station'
+                    ],
+                    police: [
+                        'Central Police Station',
+                        'City Police Headquarters',
+                        'Traffic Police Station'
+                    ],
+                    fire: [
+                        'Main Fire Station',
+                        'City Fire & Rescue',
+                        'Emergency Fire Services'
+                    ]
+                };
+                
                 services.push({
                     id: `${type}-${i}`,
-                    name: getDemoServiceName(type, i),
+                    name: serviceNames[type][i],
                     type: type,
                     location: [serviceLat, serviceLon],
                     address: getDemoAddress(),
@@ -215,22 +262,20 @@ document.addEventListener('DOMContentLoaded', function() {
         return services.sort((a, b) => a.distance - b.distance);
     }
     
-    // Demo service names
-    function getDemoServiceName(type, index) {
-        const names = {
-            mechanic: ['Quick Fix Auto', 'City Mechanics', 'Express Repairs', 'AutoCare Center', 'Pro Mechanics'],
-            gas: ['Indian Oil', 'HP Petrol Pump', 'Shell Gas Station', 'Bharat Petroleum', 'Reliance Petrol'],
-            police: ['City Police Station', 'District Police HQ', 'Police Outpost', 'Traffic Police Station', 'Central Police'],
-            fire: ['City Fire Station', 'Emergency Fire Services', 'District Fire Department', 'Fire & Rescue', 'Metro Fire Brigade']
-        };
-        
-        return names[type][index % names[type].length];
-    }
-    
-    // Generate demo addresses
+    // Update getDemoAddress function to be more realistic
     function getDemoAddress() {
-        const streets = ['MG Road', 'Nehru Place', 'Connaught Place', 'Karol Bagh', 'Chandni Chowk', 'Saket', 'Dwarka', 'Lajpat Nagar'];
-        const areas = ['New Delhi', 'South Delhi', 'North Delhi', 'East Delhi', 'Central Delhi'];
+        const streets = [
+            'MG Road',
+            'Nehru Place',
+            'Connaught Place',
+            'Karol Bagh'
+        ];
+        const areas = [
+            'New Delhi',
+            'South Delhi',
+            'North Delhi',
+            'Central Delhi'
+        ];
         
         return `${Math.floor(Math.random() * 100) + 1}, ${streets[Math.floor(Math.random() * streets.length)]}, ${areas[Math.floor(Math.random() * areas.length)]}`;
     }
@@ -611,7 +656,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize the application
     function init() {
         // Check dark mode preference
-        checkDarkModePreference();
+        const darkModeEnabled = localStorage.getItem('darkMode') === 'enabled' || 
+                                localStorage.getItem('darkMode') === 'true';
+        if (darkModeEnabled) {
+            document.body.classList.add('dark-mode');
+        }
         
         // Initialize map
         initMap();
@@ -670,20 +719,38 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         // Chatbot toggle
-        chatbotToggle.addEventListener('click', () => {
-            chatbot.style.display = 'block';
-            chatbotToggle.style.display = 'none';
-        });
+        if (chatbotToggle) {
+            chatbotToggle.addEventListener('click', () => {
+                chatbot.style.display = 'flex';
+                chatbotToggle.style.display = 'none';
+            });
+        }
         
-        minimizeChat.addEventListener('click', () => {
-            chatbot.style.display = 'none';
-            chatbotToggle.style.display = 'flex';
-        });
+        // Minimize chatbot
+        if (minimizeChat) {
+            minimizeChat.addEventListener('click', () => {
+                chatbot.style.display = 'none';
+                chatbotToggle.style.display = 'flex';
+            });
+        }
         
-        closeChat.addEventListener('click', () => {
-            chatbot.style.display = 'none';
-            chatbotToggle.style.display = 'flex';
-        });
+        // Close chatbot
+        if (closeChat) {
+            closeChat.addEventListener('click', () => {
+                chatbot.style.display = 'none';
+                chatbotToggle.style.display = 'flex';
+                // Clear chat history except for the first welcome message
+                const chatMessages = document.getElementById('chatbot-messages');
+                while (chatMessages.children.length > 1) {
+                    chatMessages.removeChild(chatMessages.lastChild);
+                }
+                // Clear input field
+                const chatInput = document.getElementById('chat-input');
+                if (chatInput) {
+                    chatInput.value = '';
+                }
+            });
+        }
         
         // Send chat message
         sendMessageBtn.addEventListener('click', sendUserMessage);
@@ -736,6 +803,216 @@ document.addEventListener('DOMContentLoaded', function() {
             if (e.target.classList.contains('modal')) {
                 e.target.style.display = 'none';
             }
+        });
+        
+        // Profile/login button
+        const profileLinks = document.querySelectorAll('.profile-link');
+        profileLinks.forEach(link => {
+            link.addEventListener('click', handleProfileClick);
+        });
+
+        // Request Assistance Button
+        const requestAssistanceBtn = document.getElementById('request-assistance-btn');
+        const assistanceOptions = document.querySelectorAll('.assistance-option');
+        const assistanceForm = document.getElementById('assistance-form');
+
+        if (requestAssistanceBtn) {
+            requestAssistanceBtn.addEventListener('click', () => {
+                assistanceModal.style.display = 'block';
+            });
+        }
+
+        // Handle assistance option selection
+        assistanceOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                const type = option.dataset.type;
+                // Set the issue type in the form
+                const issueTypeSelect = document.getElementById('issue-type');
+                if (issueTypeSelect) {
+                    issueTypeSelect.value = type;
+                }
+                // Show the form
+                assistanceForm.classList.remove('hidden');
+                // Scroll to form
+                assistanceForm.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Close modal
+        const closeModal = document.querySelector('.close-modal');
+        if (closeModal) {
+            closeModal.addEventListener('click', () => {
+                assistanceModal.style.display = 'none';
+                // Reset form
+                assistanceForm.classList.add('hidden');
+            });
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === assistanceModal) {
+                assistanceModal.style.display = 'none';
+                assistanceForm.classList.add('hidden');
+            }
+        });
+
+        // Main Feedback Form Handling
+        const mainFeedbackForm = document.getElementById('main-feedback-form');
+        const feedbackSuccess = document.getElementById('feedback-success');
+        const submitAnotherFeedback = document.getElementById('submit-another-feedback');
+        
+        if (mainFeedbackForm) {
+            mainFeedbackForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                // Get form data
+                const name = document.getElementById('feedback-name').value;
+                const email = document.getElementById('feedback-email').value;
+                const feedbackType = document.getElementById('feedback-type').value;
+                const rating = document.querySelector('input[name="inline-rating"]:checked').value;
+                const message = document.getElementById('feedback-message').value;
+                const consent = document.getElementById('feedback-consent').checked;
+                
+                // In a real app, you would send this data to a server
+                console.log('Feedback from:', name);
+                console.log('Email:', email);
+                console.log('Type:', feedbackType);
+                console.log('Rating:', rating);
+                console.log('Message:', message);
+                console.log('Consent given:', consent);
+                
+                // Hide form and show success message
+                mainFeedbackForm.parentElement.style.display = 'none';
+                feedbackSuccess.classList.remove('hidden');
+                
+                // Scroll to success message
+                feedbackSuccess.scrollIntoView({ behavior: 'smooth' });
+                
+                // Reset form
+                mainFeedbackForm.reset();
+            });
+        }
+        
+        // Submit another feedback button
+        if (submitAnotherFeedback) {
+            submitAnotherFeedback.addEventListener('click', function() {
+                // Hide success message and show form
+                feedbackSuccess.classList.add('hidden');
+                mainFeedbackForm.parentElement.style.display = 'block';
+                
+                // Scroll to form
+                mainFeedbackForm.scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+
+        // Open feedback widget
+        if (feedbackToggle) {
+            feedbackToggle.addEventListener('click', function() {
+                feedbackWidget.style.display = 'flex';
+                feedbackToggle.style.display = 'none';
+                
+                // Reset the form and hide thank you message
+                quickFeedbackForm.reset();
+                feedbackThankYou.classList.add('hidden');
+            });
+        }
+        
+        // Minimize feedback widget
+        if (minimizeFeedback) {
+            minimizeFeedback.addEventListener('click', function() {
+                feedbackWidget.style.display = 'none';
+                feedbackToggle.style.display = 'flex';
+            });
+        }
+        
+        // Close feedback widget
+        if (closeFeedback) {
+            closeFeedback.addEventListener('click', function() {
+                feedbackWidget.style.display = 'none';
+                feedbackToggle.style.display = 'flex';
+            });
+        }
+        
+        // Handle feedback form submission
+        if (quickFeedbackForm) {
+            quickFeedbackForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                // Get form data
+                const rating = document.querySelector('input[name="quick-rating"]:checked');
+                if (!rating) {
+                    alert('Please select a rating');
+                    return;
+                }
+                
+                const message = document.getElementById('quick-feedback-message').value;
+                const email = document.getElementById('quick-feedback-email').value;
+                
+                // In a real app, you would send this data to a server
+                console.log('Quick Feedback Rating:', rating.value);
+                console.log('Quick Feedback Message:', message);
+                console.log('Quick Feedback Email:', email);
+                
+                // Show thank you message
+                feedbackThankYou.classList.remove('hidden');
+                
+                // Reset form for next time
+                quickFeedbackForm.reset();
+            });
+        }
+        
+        // Close thank you message
+        if (feedbackCloseBtn) {
+            feedbackCloseBtn.addEventListener('click', function() {
+                feedbackWidget.style.display = 'none';
+                feedbackToggle.style.display = 'flex';
+                feedbackThankYou.classList.add('hidden');
+            });
+        }
+    }
+    
+    // Add this new function
+    function handleProfileClick(event) {
+        event.preventDefault();
+        // Show logout confirmation
+        if (confirm('Do you want to log out?')) {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userFullname');
+            localStorage.removeItem('userEmail');
+            window.location.reload();
+        }
+    }
+    
+    // Function to check login status and update UI
+    function checkLoginStatus() {
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        const userFullname = localStorage.getItem('userFullname');
+        
+        // Update profile button/link visibility as needed
+        const profileWidget = document.querySelector('.profile-widget');
+        if (profileWidget) {
+            if (isLoggedIn && userFullname) {
+                // Update profile display if logged in
+                const profileName = profileWidget.querySelector('.profile-name');
+                if (profileName) {
+                    profileName.textContent = userFullname;
+                }
+                profileWidget.style.display = 'flex';
+            } else {
+                // Hide profile widget if not logged in
+                profileWidget.style.display = 'none';
+            }
+        }
+    }
+    
+    // Add logout functionality 
+    const logoutBtn = document.querySelector('.logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userFullname');
+            localStorage.removeItem('userEmail');
+            window.location.reload();
         });
     }
     

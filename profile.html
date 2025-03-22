@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - roadresisst</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="front.css">
+    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="front.html">
+                    <img src="https://via.placeholder.com/45" alt="roadresisst Logo">
+                    <h1>roadresisst</h1>
+                </a>
+            </div>
+            
+            <nav class="main-nav">
+                <ul class="nav-buttons">
+                    <li><a href="front.html" class="nav-btn"><i class="fas fa-map-marked-alt"></i> Find Services</a></li>
+                    <li><a href="#" class="nav-btn"><i class="fas fa-history"></i> History</a></li>
+                    <li><a href="#" class="nav-btn"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="profile.html" class="nav-btn active"><i class="fas fa-user-circle"></i> Profile</a></li>
+                </ul>
+            </nav>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <button id="dark-mode-toggle" class="dark-mode-toggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav">
+        <ul class="nav-buttons-mobile">
+            <li><a href="front.html" class="nav-btn"><i class="fas fa-map-marked-alt"></i> Find Services</a></li>
+            <li><a href="#" class="nav-btn"><i class="fas fa-history"></i> History</a></li>
+            <li><a href="#" class="nav-btn"><i class="fas fa-info-circle"></i> About</a></li>
+            <li><a href="profile.html" class="nav-btn active"><i class="fas fa-user-circle"></i> Profile</a></li>
+        </ul>
+    </div>
+    
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <div class="profile-container">
+                <!-- Profile Sidebar -->
+                <div class="profile-sidebar">
+                    <div class="user-profile-card">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <h2 id="profile-name">User Name</h2>
+                        <p id="profile-email">user@example.com</p>
+                        <button class="edit-profile-btn"><i class="fas fa-pencil-alt"></i> Edit Profile</button>
+                    </div>
+                    
+                    <ul class="profile-menu">
+                        <li class="active" data-tab="dashboard">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                        </li>
+                        <li data-tab="personal-info">
+                            <i class="fas fa-user"></i> Personal Information
+                        </li>
+                        <li data-tab="vehicles">
+                            <i class="fas fa-car"></i> My Vehicles
+                        </li>
+                        <li data-tab="history">
+                            <i class="fas fa-history"></i> Request History
+                        </li>
+                        <li data-tab="payment">
+                            <i class="fas fa-credit-card"></i> Payment Methods
+                        </li>
+                        <li data-tab="settings">
+                            <i class="fas fa-cog"></i> Settings
+                        </li>
+                        <li class="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Profile Content -->
+                <div class="profile-content">
+                    <!-- Dashboard Tab -->
+                    <div class="profile-tab active" id="dashboard-tab">
+                        <h2>Dashboard</h2>
+                        
+                        <div class="stats-cards">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-wrench"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3>5</h3>
+                                    <p>Total Requests</p>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3>4.8</h3>
+                                    <p>Avg. Rating</p>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-medal"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3>Silver</h3>
+                                    <p>Membership</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="recent-activity">
+                            <h3>Recent Activity</h3>
+                            
+                            <div class="activity-list">
+                                <div class="activity-item">
+                                    <div class="activity-icon">
+                                        <i class="fas fa-tools"></i>
+                                    </div>
+                                    <div class="activity-details">
+                                        <h4>Mechanic Service</h4>
+                                        <p>Flat tire repair by Quick Fix Auto Service</p>
+                                        <span class="activity-date">June 10, 2023</span>
+                                    </div>
+                                    <div class="activity-status completed">
+                                        <span>Completed</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="activity-item">
+                                    <div class="activity-icon">
+                                        <i class="fas fa-gas-pump"></i>
+                                    </div>
+                                    <div class="activity-details">
+                                        <h4>Fuel Delivery</h4>
+                                        <p>Emergency fuel delivery by HP Service</p>
+                                        <span class="activity-date">May 22, 2023</span>
+                                    </div>
+                                    <div class="activity-status completed">
+                                        <span>Completed</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="activity-item">
+                                    <div class="activity-icon">
+                                        <i class="fas fa-truck-pickup"></i>
+                                    </div>
+                                    <div class="activity-details">
+                                        <h4>Towing Service</h4>
+                                        <p>Vehicle towed to City Mechanics</p>
+                                        <span class="activity-date">April 15, 2023</span>
+                                    </div>
+                                    <div class="activity-status completed">
+                                        <span>Completed</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Personal Information Tab -->
+                    <div class="profile-tab" id="personal-info-tab">
+                        <h2>Personal Information</h2>
+                        
+                        <form id="personal-info-form" class="profile-form">
+                            <div class="form-group">
+                                <label for="full-name">Full Name</label>
+                                <input type="text" id="full-name" value="John Doe">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email-address">Email Address</label>
+                                <input type="email" id="email-address" value="john.doe@example.com">
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="phone-number">Phone Number</label>
+                                    <input type="tel" id="phone-number" value="+91 9876543210">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="date-of-birth">Date of Birth</label>
+                                    <input type="date" id="date-of-birth" value="1990-01-15">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="address">Address</label>
+                                <textarea id="address">123 Main Street, New Delhi, India</textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="emergency-contact">Emergency Contact</label>
+                                <input type="text" id="emergency-contact" value="+91 9876543211">
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="primary-btn">Save Changes</button>
+                                <button type="reset" class="outline-btn">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Vehicles Tab -->
+                    <div class="profile-tab" id="vehicles-tab">
+                        <h2>My Vehicles</h2>
+                        
+                        <div class="vehicles-list">
+                            <div class="vehicle-card">
+                                <div class="vehicle-icon">
+                                    <i class="fas fa-car"></i>
+                                </div>
+                                <div class="vehicle-details">
+                                    <h3>Honda City</h3>
+                                    <div class="vehicle-info">
+                                        <p><strong>Number:</strong> DL01AB1234</p>
+                                        <p><strong>Year:</strong> 2020</p>
+                                        <p><strong>Color:</strong> Silver</p>
+                                    </div>
+                                </div>
+                                <div class="vehicle-actions">
+                                    <button class="edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                                    <button class="delete-btn"><i class="fas fa-trash-alt"></i></button>
+                                </div>
+                            </div>
+                            
+                            <div class="vehicle-card">
+                                <div class="vehicle-icon">
+                                    <i class="fas fa-motorcycle"></i>
+                                </div>
+                                <div class="vehicle-details">
+                                    <h3>Hero Splendor Plus</h3>
+                                    <div class="vehicle-info">
+                                        <p><strong>Number:</strong> DL01CD5678</p>
+                                        <p><strong>Year:</strong> 2021</p>
+                                        <p><strong>Color:</strong> Black</p>
+                                    </div>
+                                </div>
+                                <div class="vehicle-actions">
+                                    <button class="edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                                    <button class="delete-btn"><i class="fas fa-trash-alt"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="add-vehicle-btn"><i class="fas fa-plus"></i> Add New Vehicle</button>
+                        
+                        <!-- Add Vehicle Form (Hidden by default) -->
+                        <form id="add-vehicle-form" class="profile-form hidden">
+                            <h3>Add New Vehicle</h3>
+                            
+                            <div class="form-group">
+                                <label for="vehicle-type">Vehicle Type</label>
+                                <select id="vehicle-type">
+                                    <option value="car">Car</option>
+                                    <option value="motorcycle">Motorcycle</option>
+                                    <option value="truck">Truck</option>
+                                    <option value="suv">SUV</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="vehicle-make">Make & Model</label>
+                                <input type="text" id="vehicle-make" placeholder="e.g. Honda City">
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="vehicle-year">Year</label>
+                                    <input type="number" id="vehicle-year" placeholder="e.g. 2020">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="vehicle-color">Color</label>
+                                    <input type="text" id="vehicle-color" placeholder="e.g. Silver">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="vehicle-number">Registration Number</label>
+                                <input type="text" id="vehicle-number" placeholder="e.g. DL01AB1234">
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="primary-btn">Add Vehicle</button>
+                                <button type="button" class="outline-btn cancel-add-vehicle">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- History Tab -->
+                    <div class="profile-tab" id="history-tab">
+                        <h2>Request History</h2>
+                        
+                        <div class="history-filter">
+                            <div class="search-box">
+                                <input type="text" placeholder="Search requests...">
+                                <button><i class="fas fa-search"></i></button>
+                            </div>
+                            
+                            <div class="filter-options">
+                                <select id="history-filter-type">
+                                    <option value="all">All Types</option>
+                                    <option value="mechanic">Mechanic</option>
+                                    <option value="fuel">Fuel Delivery</option>
+                                    <option value="tow">Towing</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                
+                                <select id="history-filter-date">
+                                    <option value="all">All Time</option>
+                                    <option value="month">Last Month</option>
+                                    <option value="6months">Last 6 Months</option>
+                                    <option value="year">Last Year</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="history-list">
+                            <div class="history-item">
+                                <div class="history-date">
+                                    <span class="month">JUN</span>
+                                    <span class="day">10</span>
+                                </div>
+                                
+                                <div class="history-content">
+                                    <div class="history-header">
+                                        <h3>Flat Tire Repair</h3>
+                                        <span class="request-id">RR-12345</span>
+                                    </div>
+                                    
+                                    <div class="history-details">
+                                        <p><i class="fas fa-map-marker-alt"></i> Connaught Place, New Delhi</p>
+                                        <p><i class="fas fa-tools"></i> Quick Fix Auto Service</p>
+                                        <p><i class="fas fa-car"></i> Honda City (DL01AB1234)</p>
+                                    </div>
+                                    
+                                    <div class="history-footer">
+                                        <div class="history-status completed">
+                                            <span>Completed</span>
+                                        </div>
+                                        
+                                        <div class="history-actions">
+                                            <button class="view-details-btn">View Details</button>
+                                            <button class="invoice-btn"><i class="fas fa-file-invoice"></i> Invoice</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="history-item">
+                                <div class="history-date">
+                                    <span class="month">MAY</span>
+                                    <span class="day">22</span>
+                                </div>
+                                
+                                <div class="history-content">
+                                    <div class="history-header">
+                                        <h3>Emergency Fuel Delivery</h3>
+                                        <span class="request-id">RR-12344</span>
+                                    </div>
+                                    
+                                    <div class="history-details">
+                                        <p><i class="fas fa-map-marker-alt"></i> Karol Bagh, New Delhi</p>
+                                        <p><i class="fas fa-gas-pump"></i> HP Service Station</p>
+                                        <p><i class="fas fa-car"></i> Honda City (DL01AB1234)</p>
+                                    </div>
+                                    
+                                    <div class="history-footer">
+                                        <div class="history-status completed">
+                                            <span>Completed</span>
+                                        </div>
+                                        
+                                        <div class="history-actions">
+                                            <button class="view-details-btn">View Details</button>
+                                            <button class="invoice-btn"><i class="fas fa-file-invoice"></i> Invoice</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="history-item">
+                                <div class="history-date">
+                                    <span class="month">APR</span>
+                                    <span class="day">15</span>
+                                </div>
+                                
+                                <div class="history-content">
+                                    <div class="history-header">
+                                        <h3>Vehicle Towing Service</h3>
+                                        <span class="request-id">RR-12340</span>
+                                    </div>
+                                    
+                                    <div class="history-details">
+                                        <p><i class="fas fa-map-marker-alt"></i> MG Road, New Delhi</p>
+                                        <p><i class="fas fa-truck-pickup"></i> City Mechanics</p>
+                                        <p><i class="fas fa-car"></i> Honda City (DL01AB1234)</p>
+                                    </div>
+                                    
+                                    <div class="history-footer">
+                                        <div class="history-status completed">
+                                            <span>Completed</span>
+                                        </div>
+                                        
+                                        <div class="history-actions">
+                                            <button class="view-details-btn">View Details</button>
+                                            <button class="invoice-btn"><i class="fas fa-file-invoice"></i> Invoice</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Payment Methods Tab -->
+                    <div class="profile-tab" id="payment-tab">
+                        <h2>Payment Methods</h2>
+                        
+                        <div class="payment-methods-list">
+                            <div class="payment-method-card">
+                                <div class="card-type-icon">
+                                    <i class="fab fa-cc-visa"></i>
+                                </div>
+                                <div class="payment-method-details">
+                                    <h3>Visa Card</h3>
+                                    <p>**** **** **** 1234</p>
+                                    <p>Expires: 12/25</p>
+                                </div>
+                                <div class="payment-method-actions">
+                                    <button class="edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                                    <button class="delete-btn"><i class="fas fa-trash-alt"></i></button>
+                                </div>
+                            </div>
+                            
+                            <div class="payment-method-card">
+                                <div class="card-type-icon">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </div>
+                                <div class="payment-method-details">
+                                    <h3>UPI Payment</h3>
+                                    <p>user@okicici</p>
+                                </div>
+                                <div class="payment-method-actions">
+                                    <button class="edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                                    <button class="delete-btn"><i class="fas fa-trash-alt"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="add-payment-btn"><i class="fas fa-plus"></i> Add Payment Method</button>
+                    </div>
+                    
+                    <!-- Settings Tab -->
+                    <div class="profile-tab" id="settings-tab">
+                        <h2>Settings</h2>
+                        
+                        <div class="settings-section">
+                            <h3>Account Settings</h3>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Password</h4>
+                                    <p>Change your account password</p>
+                                </div>
+                                <button class="outline-btn">Change Password</button>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Email Notifications</h4>
+                                    <p>Receive email updates about your service requests</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>SMS Notifications</h4>
+                                    <p>Receive text message updates about your service requests</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-section">
+                            <h3>App Settings</h3>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Dark Mode</h4>
+                                    <p>Toggle between light and dark theme</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="settings-dark-mode">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Location Services</h4>
+                                    <p>Allow app to access your location</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-section">
+                            <h3>Privacy & Data</h3>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Delete Account</h4>
+                                    <p>Permanently delete your account and all your data</p>
+                                </div>
+                                <button class="delete-btn">Delete Account</button>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Privacy Policy</h4>
+                                    <p>Read our privacy policy</p>
+                                </div>
+                                <button class="outline-btn">View</button>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Terms of Service</h4>
+                                    <p>Read our terms of service</p>
+                                </div>
+                                <button class="outline-btn">View</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Scripts -->
+    <script src="profile.js"></script>
+</body>
+</html> 

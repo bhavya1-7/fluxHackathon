@@ -16,8 +16,8 @@ function init() {
     // Check if user is already logged in
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     if (isLoggedIn) {
-        // Redirect to main page if already logged in
-        window.location.href = 'main.html';
+        // Redirect to front page if already logged in
+        window.location.href = 'front.html';
         return;
     }
     
@@ -180,13 +180,20 @@ function simulateAuthentication(email, password) {
                 localStorage.removeItem('savedEmail');
             }
             
-            // Set logged in state
+            // Set logged in state and default user data if none exists
             localStorage.setItem('isLoggedIn', 'true');
             
-            // Redirect to main page after successful login
+            // Store user name from email if not available
+            if (!localStorage.getItem('userFullname')) {
+                const userName = email.split('@')[0]; // Simple extraction from email
+                localStorage.setItem('userFullname', userName);
+            }
+            localStorage.setItem('userEmail', email);
+            
+            // Redirect to front.html instead of main.html
             loginBtn.textContent = 'Success!';
             setTimeout(() => {
-                window.location.href = 'main.html';
+                window.location.href = 'front.html';
             }, 1000);
         } else {
             // Show login error

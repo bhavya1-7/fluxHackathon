@@ -233,7 +233,7 @@ function simulateRegistration(fullname, email, password) {
         
         // Redirect to main page after successful registration
         setTimeout(() => {
-            window.location.href = 'main.html';
+            window.location.href = 'front.html';
         }, 1000);
     }, 1500);
 }

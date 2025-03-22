@@ -13,33 +13,52 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     
     <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="front.css">
 </head>
 <body>
     <!-- Header -->
     <header class="main-header">
         <div class="container">
-            <div class="logo">
-                <img src="https://via.placeholder.com/45" alt="roadresisst Logo">
-                <h1>roadresisst</h1>
+            <!-- Add the heading at the left side -->
+            <div class="site-title">
+                <h1>Roadresisst</h1>
             </div>
             
+            <!-- Navigation in the middle/right -->
             <nav class="main-nav">
                 <ul class="nav-buttons">
-                    <li><a href="#" class="nav-btn active"><i class="fas fa-map-marked-alt"></i> Find Services</a></li>
+                    <li><a href="front.html" class="nav-btn active"><i class="fas fa-map-marked-alt"></i> Find Services</a></li>
                     <li><a href="#" class="nav-btn"><i class="fas fa-history"></i> History</a></li>
                     <li><a href="#" class="nav-btn"><i class="fas fa-info-circle"></i> About</a></li>
-                    <li><a href="#" class="nav-btn"><i class="fas fa-user-circle"></i> Profile</a></li>
+                    <li><a href="login.html" class="nav-btn login-link"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                    <li><a href="#" class="nav-btn profile-link" style="display: none;"><i class="fas fa-user-circle"></i> <span class="user-display">Profile</span></a></li>
                 </ul>
             </nav>
             
-            <button class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </button>
-            
-            <button id="dark-mode-toggle" class="dark-mode-toggle">
-                <i class="fas fa-moon"></i>
-            </button>
+            <!-- Right side controls -->
+            <div class="header-controls">
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <button id="dark-mode-toggle" class="dark-mode-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                
+                <div class="profile-widget" style="display: none;">
+                    <div class="profile-img">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="profile-name">User</div>
+                    <div class="profile-dropdown">
+                        <a href="#"><i class="fas fa-user"></i> My Profile</a>
+                        <a href="#"><i class="fas fa-history"></i> History</a>
+                        <a href="#"><i class="fas fa-cog"></i> Settings</a>
+                        <a href="#" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
     
@@ -110,6 +129,61 @@
             </div>
         </section>
         
+        <!-- After the map section, add the assistance section -->
+        <section class="assistance-section">
+            <div class="container text-center">
+                <button id="request-assistance-btn" class="pulse-btn">
+                    <i class="fas fa-hands-helping"></i>
+                    Request Assistance
+                </button>
+            </div>
+        </section>
+        
+        <!-- Keep the original chatbot code -->
+        <div id="chatbot-toggle" class="chatbot-toggle">
+            <i class="fas fa-comment-dots"></i>
+            <span>Need Help?</span>
+        </div>
+
+        <div id="chatbot" class="chatbot">
+            <div class="chatbot-header">
+                <h3><i class="fas fa-robot"></i> roadresisst Assistant</h3>
+                <div class="chatbot-controls">
+                    <button id="minimize-chat" type="button" aria-label="Minimize chat">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button id="close-chat" type="button" aria-label="Close chat">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div id="chatbot-messages" class="chatbot-messages">
+                <!-- Bot message will be added here dynamically -->
+                <div class="chat-message bot">
+                    <div class="chat-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <p>Hello! I'm your roadresisst assistant. How can I help you today?</p>
+                        <span class="message-time">10:00</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chatbot-suggestions">
+                <button class="suggestion-btn">I have a flat tire</button>
+                <button class="suggestion-btn">Need a tow truck</button>
+                <button class="suggestion-btn">Out of fuel</button>
+                <button class="suggestion-btn">Battery issue</button>
+            </div>
+            
+            <div class="chatbot-input">
+                <input type="text" id="chat-input" placeholder="Type your message here...">
+                <button id="send-message-btn"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+        
         <!-- Features Section -->
         <section class="features-section">
             <div class="container">
@@ -147,6 +221,122 @@
                         <h3>Verified Providers</h3>
                         <p>All service providers are verified and rated by users.</p>
                     </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Add this after the features section and before the footer -->
+        <section class="feedback-section">
+            <div class="container">
+                <h2>Your Feedback Matters</h2>
+                <p class="section-subtitle">Help us improve our services by sharing your experience</p>
+                
+                <div class="feedback-container">
+                    <form id="main-feedback-form" class="feedback-form">
+                        <div class="form-group">
+                            <label for="feedback-name">Your Name</label>
+                            <input type="text" id="feedback-name" placeholder="Enter your name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="feedback-email">Email Address</label>
+                            <input type="email" id="feedback-email" placeholder="Enter your email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="feedback-type">Feedback Type</label>
+                            <select id="feedback-type" required>
+                                <option value="" disabled selected>Select feedback type</option>
+                                <option value="service">Service Experience</option>
+                                <option value="app">App Experience</option>
+                                <option value="suggestion">Suggestion</option>
+                                <option value="complaint">Complaint</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>How would you rate your experience?</label>
+                            <div class="inline-star-rating">
+                                <input type="radio" id="inline-star5" name="inline-rating" value="5" required>
+                                <label for="inline-star5"><i class="fas fa-star"></i></label>
+                                
+                                <input type="radio" id="inline-star4" name="inline-rating" value="4">
+                                <label for="inline-star4"><i class="fas fa-star"></i></label>
+                                
+                                <input type="radio" id="inline-star3" name="inline-rating" value="3">
+                                <label for="inline-star3"><i class="fas fa-star"></i></label>
+                                
+                                <input type="radio" id="inline-star2" name="inline-rating" value="2">
+                                <label for="inline-star2"><i class="fas fa-star"></i></label>
+                                
+                                <input type="radio" id="inline-star1" name="inline-rating" value="1">
+                                <label for="inline-star1"><i class="fas fa-star"></i></label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="feedback-message">Your Feedback</label>
+                            <textarea id="feedback-message" rows="5" placeholder="Please share your thoughts, suggestions, or experiences with our service" required></textarea>
+                        </div>
+                        
+                        <div class="form-group checkbox">
+                            <input type="checkbox" id="feedback-consent" required>
+                            <label for="feedback-consent">I consent to having this website store my submitted information so they can respond to my inquiry</label>
+                        </div>
+                        
+                        <button type="submit" class="primary-btn">Submit Feedback</button>
+                    </form>
+                    
+                    <div class="feedback-info">
+                        <div class="feedback-card">
+                            <div class="feedback-icon">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <h3>Why Your Feedback Matters</h3>
+                            <p>Your feedback helps us understand what's working well and where we need to improve. We use your input to enhance our services and make your roadside assistance experience better.</p>
+                        </div>
+                        
+                        <div class="feedback-card">
+                            <div class="feedback-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3>Your Privacy is Protected</h3>
+                            <p>We value your privacy and keep your information secure. Your feedback may be used to improve our services, but your personal information will never be shared with third parties.</p>
+                        </div>
+                        
+                        <div class="testimonial">
+                            <div class="quote-icon">
+                                <i class="fas fa-quote-left"></i>
+                            </div>
+                            <p>"I was stranded on the highway with a flat tire. Within 20 minutes of using roadresisst, help arrived. The mechanic was professional and quick. Excellent service!"</p>
+                            <div class="testimonial-author">
+                                <div class="author-img">
+                                    <i class="fas fa-user-circle"></i>
+                                </div>
+                                <div class="author-info">
+                                    <h4>Priya Sharma</h4>
+                                    <div class="author-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Success Message (hidden by default) -->
+                <div id="feedback-success" class="feedback-success hidden">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Thank You for Your Feedback!</h3>
+                    <p>We appreciate you taking the time to share your thoughts with us. Your feedback helps us improve our services.</p>
+                    <button id="submit-another-feedback" class="outline-btn">Submit Another Feedback</button>
                 </div>
             </div>
         </section>
@@ -206,47 +396,6 @@
         </div>
     </footer>
     
-    <!-- Chatbot -->
-    <div id="chatbot-toggle" class="chatbot-toggle">
-        <i class="fas fa-comment-dots"></i>
-        <span>Need Help?</span>
-    </div>
-    
-    <div id="chatbot" class="chatbot">
-        <div class="chatbot-header">
-            <h3><i class="fas fa-robot"></i> roadresisst Assistant</h3>
-            <div class="chatbot-controls">
-                <button id="minimize-chat"><i class="fas fa-minus"></i></button>
-                <button id="close-chat"><i class="fas fa-times"></i></button>
-            </div>
-        </div>
-        
-        <div id="chatbot-messages" class="chatbot-messages">
-            <!-- Bot message will be added here dynamically -->
-            <div class="chat-message bot">
-                <div class="chat-avatar">
-                    <i class="fas fa-robot"></i>
-                </div>
-                <div class="message-content">
-                    <p>Hello! I'm your roadresisst assistant. How can I help you today?</p>
-                    <span class="message-time">10:00</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="chatbot-suggestions">
-            <button class="suggestion-btn">I have a flat tire</button>
-            <button class="suggestion-btn">Need a tow truck</button>
-            <button class="suggestion-btn">Out of fuel</button>
-            <button class="suggestion-btn">Battery issue</button>
-        </div>
-        
-        <div class="chatbot-input">
-            <input type="text" id="chat-input" placeholder="Type your message here...">
-            <button id="send-message-btn"><i class="fas fa-paper-plane"></i></button>
-        </div>
-    </div>
-    
     <!-- Modals -->
     <!-- Service Details Modal -->
     <div id="service-details-modal" class="modal">
@@ -260,34 +409,41 @@
     <div id="assistance-modal" class="modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
-            <h2>Request Assistance</h2>
+            <h2><i class="fas fa-hands-helping"></i> Request Assistance</h2>
             
             <form id="assistance-form">
                 <div class="form-group">
                     <label><i class="fas fa-car"></i> Vehicle Type</label>
-                    <select id="vehicle-type">
+                    <select id="vehicle-type" required>
+                        <option value="" disabled selected>Select your vehicle type</option>
                         <option value="car">Car</option>
                         <option value="bike">Motorcycle</option>
                         <option value="truck">Truck</option>
+                        <option value="suv">SUV</option>
                         <option value="other">Other</option>
                     </select>
                 </div>
                 
                 <div class="form-group">
                     <label><i class="fas fa-tools"></i> Issue Type</label>
-                    <select id="issue-type">
+                    <select id="issue-type" required>
+                        <option value="" disabled selected>What's the issue?</option>
                         <option value="flat">Flat Tire</option>
                         <option value="battery">Battery Issue</option>
                         <option value="fuel">Out of Fuel</option>
                         <option value="engine">Engine Problem</option>
                         <option value="tow">Need Towing</option>
+                        <option value="accident">Accident</option>
                         <option value="other">Other</option>
                     </select>
                 </div>
                 
                 <div class="form-group">
                     <label><i class="fas fa-map-marker-alt"></i> Your Location</label>
-                    <input type="text" id="req-location" placeholder="Your current location">
+                    <input type="text" id="req-location" placeholder="Your current location" required>
+                    <button type="button" id="use-current-location" class="location-btn">
+                        <i class="fas fa-location-arrow"></i> Use My Current Location
+                    </button>
                 </div>
                 
                 <div class="form-group">
@@ -319,10 +475,112 @@
             <p>Your assistance request has been successfully submitted. A service provider will contact you shortly.</p>
             <p class="request-id">Request ID: <strong>RR-12345</strong></p>
             <button class="primary-btn">Track Request Status</button>
+            <button id="leave-feedback-btn" class="primary-btn">Leave Feedback</button>
+        </div>
+    </div>
+    
+    <!-- Add this after the chatbot but before the modals -->
+    <!-- Feedback Widget -->
+    <div id="feedback-toggle" class="feedback-toggle">
+        <i class="fas fa-comment-alt"></i>
+        <span>Feedback</span>
+    </div>
+
+    <div id="feedback-widget" class="feedback-widget">
+        <div class="feedback-header">
+            <h3><i class="fas fa-star"></i> Share Your Feedback</h3>
+            <div class="feedback-controls">
+                <button id="minimize-feedback"><i class="fas fa-minus"></i></button>
+                <button id="close-feedback"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+        
+        <div class="feedback-content">
+            <form id="quick-feedback-form">
+                <div class="rating-group">
+                    <p>How would you rate your experience?</p>
+                    <div class="quick-star-rating">
+                        <input type="radio" id="quick-star5" name="quick-rating" value="5" />
+                        <label for="quick-star5"><i class="fas fa-star"></i></label>
+                        
+                        <input type="radio" id="quick-star4" name="quick-rating" value="4" />
+                        <label for="quick-star4"><i class="fas fa-star"></i></label>
+                        
+                        <input type="radio" id="quick-star3" name="quick-rating" value="3" />
+                        <label for="quick-star3"><i class="fas fa-star"></i></label>
+                        
+                        <input type="radio" id="quick-star2" name="quick-rating" value="2" />
+                        <label for="quick-star2"><i class="fas fa-star"></i></label>
+                        
+                        <input type="radio" id="quick-star1" name="quick-rating" value="1" />
+                        <label for="quick-star1"><i class="fas fa-star"></i></label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="quick-feedback-message">Tell us about your experience</label>
+                    <textarea id="quick-feedback-message" placeholder="Your feedback helps us improve our services" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="quick-feedback-email">Email (optional)</label>
+                    <input type="email" id="quick-feedback-email" placeholder="For us to follow up if needed">
+                </div>
+                
+                <button type="submit" class="primary-btn submit-feedback-btn">
+                    <i class="fas fa-paper-plane"></i> Send Feedback
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Feedback Thank You Message (appears within the widget) -->
+    <div id="feedback-thank-you" class="feedback-thank-you hidden">
+        <div class="thank-you-content">
+            <div class="thank-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>Thank You!</h3>
+            <p>Your feedback has been submitted successfully. We appreciate your input!</p>
+            <button id="feedback-close-btn" class="outline-btn">Close</button>
         </div>
     </div>
     
     <!-- Custom JavaScript -->
     <script src="front.js"></script>
+    
+    <!-- Before the closing </body> tag, add this script before front.js -->
+    <script>
+    // Common authentication functions
+    function checkLoginStatus() {
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        
+        // Update UI based on login status
+        const loginLinks = document.querySelectorAll('.login-link');
+        const profileLinks = document.querySelectorAll('.profile-link');
+        
+        if (isLoggedIn) {
+            loginLinks.forEach(link => link.style.display = 'none');
+            profileLinks.forEach(link => link.style.display = 'block');
+            
+            // Set username if available
+            const userFullname = localStorage.getItem('userFullname');
+            if (userFullname) {
+                const userDisplayElements = document.querySelectorAll('.user-display');
+                userDisplayElements.forEach(elem => {
+                    elem.textContent = userFullname;
+                });
+            }
+        } else {
+            loginLinks.forEach(link => link.style.display = 'block');
+            profileLinks.forEach(link => link.style.display = 'none');
+        }
+    }
+
+    // Initialize this on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        checkLoginStatus();
+    });
+    </script>
 </body>
 </html> 
